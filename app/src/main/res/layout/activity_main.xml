@@ -3,28 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#000000">
-
-    <EditText
+    android:background="#001A33"> <EditText
         android:id="@+id/editor"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="#333333"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#002200" 
+        android:gravity="top"
+        android:hint="root@terminal:~# "
+        android:textColorHint="#004400"
         android:textColor="#00FF00"
-        android:padding="10dp"
-        android:hint="Код здесь..."
-        android:gravity="top"/>
+        android:padding="15dp"
+        android:fontFamily="monospace"
+        android:inputType="textMultiLine|textNoSuggestions" />
 
-    <Button
-        android:id="@+id/btnStart"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="ЗАПУСК / ВВОД" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#001A33"
+        android:padding="10dp">
 
-    <Button
-        android:id="@+id/btnStop"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="СТОП" />
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_weight="1"
+            android:text="ВВОД"
+            android:backgroundTint="#0044CC"
+            android:textColor="#FFFFFF" />
 
+        <Button
+            android:id="@+id/btnStop"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:text="СТОП"
+            android:backgroundTint="#002266"
+            android:layout_marginLeft="5dp" />
+    </LinearLayout>
 </LinearLayout>
