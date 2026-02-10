@@ -2,31 +2,30 @@ package com.terminal.app;
 
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
-// Добавляем явный импорт твоего R-класса
-import com.terminal.app.R;
+// УБЕРИ импорт com.terminal.app.R, если он там есть
 
 public class MainActivity extends AppCompatActivity {
-    Interpreter interpreter;
+    // Если Interpreter еще не создан или в нем ошибки, 
+    // давай временно его закомментируем, чтобы проверить только интерфейс
+    // Object interpreter; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        // Используем полный путь, чтобы компилятор не сомневался
-        setContentView(com.terminal.app.R.layout.activity_main);
+        // R должен подхватиться автоматически, так как файл в том же пакете
+        setContentView(R.layout.activity_main);
         
-        interpreter = new Interpreter(this);
-        EditText editor = findViewById(com.terminal.app.R.id.editor);
+        EditText editor = findViewById(R.id.editor);
 
-        // Кнопка ПУСК
-        findViewById(com.terminal.app.R.id.btnStart).setOnClickListener(v -> {
-            interpreter.run(editor.getText().toString());
+        findViewById(R.id.btnStart).setOnClickListener(v -> {
+            // interpreter.run(...)
         });
 
-        // Кнопка СТОП
-        findViewById(com.terminal.app.R.id.btnStop).setOnClickListener(v -> {
-            interpreter.stop();
+        findViewById(R.id.btnStop).setOnClickListener(v -> {
+            // interpreter.stop()
         });
     }
 }
