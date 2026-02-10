@@ -6,39 +6,39 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    // Interpreter interpreter; // Раскомментируй, когда файл будет готов
+    private Interpreter interpreter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Находим ID макета activity_main динамически без R.layout
+        // Динамическое подключение макета
         int layoutId = getResources().getIdentifier("activity_main", "layout", getPackageName());
-        setContentView(layoutId);
+        if (layoutId != 0) {
+            setContentView(layoutId);
+        }
 
-        // Находим элементы по их текстовым ID
-        EditText editor = findViewById(resId("editor"));
-        View btnStart = findViewById(resId("btnStart"));
-        View btnStop = findViewById(resId("btnStop"));
+        // Инициализация интерпретатора
+        interpreter = new Interpreter(this);
 
-        if (btnStart != null) {
+        // Поиск элементов
+        int editorId = getResources().getIdentifier("editor", "id", getPackageName());
+        int startId = getResources().getIdentifier("btnStart", "id", getPackageName());
+        int stopId = getResources().getIdentifier("btnStop", "id", getPackageName());
+
+        EditText editor = findViewById(editorId);
+        View btnStart = findViewById(startId);
+        View btnStop = findViewById(stopId);
+
+        if (btnStart != null && editor != null) {
             btnStart.setOnClickListener(v -> {
-                if (editor != null) {
-                    String code = editor.getText().toString();
-                    // interpreter.run(code);
-                }
+                String code = editor.getText().toString();
+                interpreter.run(code);
             });
         }
 
         if (btnStop != null) {
-            btnStop.setOnClickListener(v -> {
-                // interpreter.stop();
-            });
+            btnStop.setOnClickListener(v -> interpreter.stop());
         }
-    }
-
-    // Вспомогательная функция, чтобы не писать R.id
-    private int resId(String name) {
-        return getResources().getIdentifier(name, "id", getPackageName());
     }
 }
