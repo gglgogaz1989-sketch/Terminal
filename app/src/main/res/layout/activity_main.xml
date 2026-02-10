@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000">
+
+    <EditText
+        android:id="@+id/editor"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#333333"
+        android:textColor="#00FF00"
+        android:padding="10dp"
+        android:hint="Код здесь..."
+        android:gravity="top"/>
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="ЗАПУСК / ВВОД" />
+
+    <Button
+        android:id="@+id/btnStop"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="СТОП" />
+
+</LinearLayout>
