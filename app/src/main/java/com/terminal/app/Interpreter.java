@@ -2,6 +2,7 @@ package com.terminal.app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.Settings;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -16,39 +17,46 @@ public class Interpreter {
         String input = code.trim();
         if (input.isEmpty()) return;
 
-        // 1. Команда MESSAGE (message:"текст")
-        if (input.startsWith("message:\"") && input.endsWith("\"")) {
-            String msg = input.substring(9, input.length() - 1);
-            Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        // 2. Команда CLEAR (чистит поле)
-        if (input.equalsIgnoreCase("clear")) {
-            editor.setText("");
-            return;
-        }
-
-        // 3. Команда CLICK (click: 500, 1000)
-        if (input.startsWith("click:")) {
+        // Команда SPEEDY
+        if (input.startsWith("speedy:\"Xiaomi\"")) {
+            Toast.makeText(context, "Оптимизация: открываю настройки ускорения...", Toast.LENGTH_LONG).show();
+            
+            // 1. Открываем параметры разработчика (для 4x MSAA)
             try {
-                String[] parts = input.replace("click:", "").trim().split(",");
-                int x = Integer.parseInt(parts[0].trim());
-                int y = Integer.parseInt(parts[1].trim());
-
-                // Отправляем координаты в наш AutomatorService
-                Intent intent = new Intent(context, AutomatorService.class);
-                intent.putExtra("action", "click");
-                intent.putExtra("x", x);
-                intent.putExtra("y", y);
-                context.startService(intent);
-
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS);
+                context.startActivity(intent);
             } catch (Exception e) {
-                Toast.makeText(context, "Ошибка формата! Пример: click: 500, 1000", Toast.LENGTH_SHORT).show();
+                // Если не открылось, открываем общие настройки
+                context.startActivity(new Intent(Settings.ACTION_SETTINGS));
             }
             return;
         }
 
-        Toast.makeText(context, "Неизвестно: " + input, Toast.LENGTH_SHORT).show();
+        // Старые команды
+        if (input.equalsIgnoreCase("clear")) {
+            editor.setText("");
+        } else if (input.startsWith("click:")) {
+            handleClick(input);
+        } else if (input.startsWith("message:\"")) {
+            String msg = input.substring(9, input.length() - 1);
+            Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void handleClick(String input) {
+        try {
+            String[] parts = input.replace("click:", "").trim().split(",");
+            Intent intent = new Intent(context, AutomatorService.class);
+            intent.putExtra("action", "click");
+            intent.putExtra("x", Integer.parseInt(parts[0].trim()));
+            intent.putExtra("y", Integer.parseInt(parts[1].trim()));
+            context.startService(intent);
+        } catch (Exception e) {
+            Toast.makeText(context, "Ошибка click!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void stop() {
+        Toast.makeText(context, "Остановлено", Toast.LENGTH_SHORT).show();
     }
 }
