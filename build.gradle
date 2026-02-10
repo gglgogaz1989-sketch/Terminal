@@ -1,15 +1,5 @@
 buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        // Используем версию, совместимую с новым Gradle
-        classpath "com.android.tools.build:gradle:8.2.0"
-    }
+    repositories { google(); mavenCentral() }
+    dependencies { classpath "com.android.tools.build:gradle:8.2.0" }
 }
-
-// УДАЛИ ОТСЮДА ВСЕ, ЧТО НИЖЕ, КРОМЕ ЗАДАЧИ CLEAN
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
+task clean(type: Delete) { delete rootProject.buildDir }
