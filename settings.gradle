@@ -6,7 +6,8 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    // Эта строка как раз и вызывала ошибку:
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         google()
         mavenCentral()
@@ -14,4 +15,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CommandDroid"
 include ':app'
-
