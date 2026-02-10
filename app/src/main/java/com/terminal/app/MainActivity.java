@@ -3,6 +3,7 @@ package com.terminal.app;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -12,25 +13,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Динамическое подключение макета
+        // 1. Пытаемся найти макет
         int layoutId = getResources().getIdentifier("activity_main", "layout", getPackageName());
-        if (layoutId != 0) {
-            setContentView(layoutId);
+        
+        if (layoutId == 0) {
+            Toast.makeText(this, "КРИТИЧЕСКАЯ ОШИБКА: activity_main.xml не найден!", Toast.LENGTH_LONG).show();
+            return;
         }
+        
+        setContentView(layoutId);
 
-        // Инициализация интерпретатора
+        // 2. Инициализируем мозги
         interpreter = new Interpreter(this);
 
-        // Поиск элементов
-        int editorId = getResources().getIdentifier("editor", "id", getPackageName());
-        int startId = getResources().getIdentifier("btnStart", "id", getPackageName());
-        int stopId = getResources().getIdentifier("btnStop", "id", getPackageName());
+        // 3. Ищем кнопки по именам
+        int edId = getResources().getIdentifier("editor", "id", getPackageName());
+        int bStartId = getResources().getIdentifier("btnStart", "id", getPackageName());
+        int bStopId = getResources().getIdentifier("btnStop", "id", getPackageName());
 
-        EditText editor = findViewById(editorId);
-        View btnStart = findViewById(startId);
-        View btnStop = findViewById(stopId);
+        EditText editor = findViewById(edId);
+        View btnStart = findViewById(bStartId);
+        View btnStop = findViewById(bStopId);
 
-        if (btnStart != null && editor != null) {
+        // 4. Проверяем, нашлись ли они
+        if (btnStart == null || editor == null) {
+            Toast.makeText(this, "ОШИБКА: Кнопки не найдены в XML!", Toast.LENGTH_LONG).show();
+        } else {
             btnStart.setOnClickListener(v -> {
                 String code = editor.getText().toString();
                 interpreter.run(code);
