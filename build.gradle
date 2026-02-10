@@ -1,22 +1,15 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        // Версия плагина Android Gradle. Убедись, что она совместима с версией Gradle
+        // Используем версию, совместимую с новым Gradle
         classpath "com.android.tools.build:gradle:8.2.0"
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
+// УДАЛИ ОТСЮДА ВСЕ, ЧТО НИЖЕ, КРОМЕ ЗАДАЧИ CLEAN
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
