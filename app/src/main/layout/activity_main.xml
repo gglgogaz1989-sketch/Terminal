@@ -3,15 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
-    <EditText android:id="@+id/editor"
+    android:padding="16dp"
+    android:background="#000000">
+
+    <EditText
+        android:id="@+id/editor"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="top"
-        android:hint="Write code here..."/>
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-        <Button android:id="@+id/btnStart" android:text=">" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-        <Button android:id="@+id/btnStop" android:text="||" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        android:hint="Введите скрипт..."
+        android:textColor="#00FF00"
+        android:textColorHint="#555555"
+        android:fontFamily="monospace"
+        android:background="@android:color/transparent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ПУСК"
+            android:layout_margin="8dp"/>
+
+        <Button
+            android:id="@+id/btnStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="СТОП"
+            android:layout_margin="8dp"/>
     </LinearLayout>
+
 </LinearLayout>
